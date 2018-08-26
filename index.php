@@ -5,7 +5,7 @@
 		Description: Adds a Purchase Order payment method to WooCommerce.
 		Author: Gareth 'GazChap' Griffiths
 		Author URI: https://www.gazchap.com
-		Text Domain: gazchap-wc-purchase-order-gateway
+		Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
 		Domain Path: /lang
 		Version: 1.1
 		WooCommerce requires at least version: 3.0.0
@@ -36,7 +36,7 @@
 		}
 
 		function load_languages() {
-			load_plugin_textdomain( 'gazchap-wc-purchase-order-gateway', false, GC_WC_POPG_DIR . 'lang' . DIRECTORY_SEPARATOR );
+			load_plugin_textdomain( 'gazchaps-woocommerce-purchase-order-payment-gateway', false, GC_WC_POPG_DIR . 'lang' . DIRECTORY_SEPARATOR );
 		}
 
 		/**
@@ -53,7 +53,7 @@
 
 		function woocommerce_deactivated_notice() {
 		    ?>
-		    <div class="notice notice-error"><p><?php esc_html_e( 'This plugin requires WooCommerce to be installed and activated.', 'gazchap-wc-purchase-order-gateway' ) ?></p></div>
+		    <div class="notice notice-error"><p><?php esc_html_e( 'This plugin requires WooCommerce to be installed and activated.', 'gazchaps-woocommerce-purchase-order-payment-gateway' ) ?></p></div>
 		    <?php
 		}
 
@@ -66,7 +66,7 @@
 			if ( !is_array( $links ) ) {
 				$links = array();
 			}
-			$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gazchap_wc_purchaseorder_gateway' ) . '">' . __( 'Settings', 'gazchap-wc-purchase-order-gateway' ) . '</a>';
+			$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=gazchap_wc_purchaseorder_gateway' ) . '">' . __( 'Settings', 'gazchaps-woocommerce-purchase-order-payment-gateway' ) . '</a>';
 			return $links;
 		}
 	}
