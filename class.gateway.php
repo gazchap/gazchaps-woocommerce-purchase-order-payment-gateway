@@ -10,8 +10,10 @@
 			public $instructions;
 			public $status;
 			public $ask_po_number;
+			public $add_po_number_to_email;
 			public $require_po_number;
 			public $ask_address;
+			public $add_address_to_email;
 			public $use_billing_address;
 
 			public function __construct() {
@@ -32,13 +34,23 @@
 
 				$this->ask_po_number = ( $this->get_option( 'ask_po_number' ) == 'yes' ) ? true : false;
 				$this->require_po_number = ( $this->get_option( 'require_po_number' ) == 'yes' ) ? true : false;
+				$this->add_po_number_to_email  = ( $this->get_option( 'add_po_number_to_email' ) == 'yes' ) ? true : false;
 				$this->ask_address = ( $this->get_option( 'ask_address' ) == 'yes' ) ? true : false;
+				$this->add_address_to_email  = ( $this->get_option( 'add_address_to_email' ) == 'yes' ) ? true : false;
 				$this->use_billing_address = ( $this->get_option( 'use_billing_address' ) == 'yes' ) ? true : false;
 
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 				add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'display_order_meta' ), 10, 1 );
 				add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_instructions' ) );
 				add_action( 'woocommerce_email_after_order_table', array( $this, 'email_instructions' ), 10, 3 );
+
+				if ( $this->add_po_number_to_email ) {
+					add_action( 'woocommerce_email_after_order_table', array( $this, 'email_add_po_number' ), 10, 3 );
+				}
+
+				if ( $this->add_address_to_email ) {
+					add_action( 'woocommerce_email_after_order_table', array( $this, 'email_add_address' ), 10, 3 );
+				}
 			}
 
 			public function init_form_fields() {
@@ -92,10 +104,22 @@
 						'label'   => __( 'Require a purchase order number to be input during checkout', 'gazchap-wc-purchase-order-gateway' ),
 						'default' => 'yes'
 					),
+					'add_po_number_to_email' => array(
+						'title'   => __( 'Add PO Number to Emails', 'gazchap-wc-purchase-order-gateway' ),
+						'type'    => 'checkbox',
+						'label'   => __( 'Adds the supplied purchase order number to the order confirmation emails', 'gazchap-wc-purchase-order-gateway' ),
+						'default' => 'yes'
+					),
 					'ask_address' => array(
 						'title'   => __( 'Ask for Address', 'gazchap-wc-purchase-order-gateway' ),
 						'type'    => 'checkbox',
 						'label'   => __( 'Ask the customer for an address to send the invoice to', 'gazchap-wc-purchase-order-gateway' ),
+						'default' => 'no'
+					),
+					'add_address_to_email' => array(
+						'title'   => __( 'Add Address to Emails', 'gazchap-wc-purchase-order-gateway' ),
+						'type'    => 'checkbox',
+						'label'   => __( 'Adds the supplied address to the order confirmation emails', 'gazchap-wc-purchase-order-gateway' ),
 						'default' => 'no'
 					),
 					'use_billing_address' => array(
@@ -125,10 +149,6 @@
 
 			public function process_payment( $order_id ) {
 
-				$order = wc_get_order( $order_id );
-				$order->update_status( $this->status, 'Awaiting invoice payment from purchase order.' );
-				wc_reduce_stock_levels( $order_id );
-
 				if ( isset( $_POST['gazchap_purchase_order'] ) && is_array( $_POST['gazchap_purchase_order'] ) ) {
 					$meta = array();
 					$fields = array( "number", "contact", "company", "address1", "address2", "city", "county", "postcode" );
@@ -140,6 +160,10 @@
 
 					update_post_meta( $order_id, '_gazchap_purchase_order', $meta );
 				}
+
+				$order = wc_get_order( $order_id );
+				$order->update_status( $this->status, 'Awaiting invoice payment from purchase order.' );
+				wc_reduce_stock_levels( $order_id );
 
 				WC()->cart->empty_cart();
 
@@ -283,6 +307,50 @@
 						</p>
 					<?php endif; ?>
 					<?php
+					}
+				}
+			}
+
+			function email_add_po_number( $order, $sent_to_admin, $plain_text = false ) {
+				if ( $order->payment_method == $this->id ) {
+					$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
+					if ( !empty( $po_data['number'] ) ) {
+						if ( $plain_text ) {
+							echo __('Purchase Order Number') . ': ' . strip_tags( $po_data['number'] ) . PHP_EOL;
+						} else {
+							echo wpautop( '<strong>' . __('Purchase Order Number') . ':</strong> ' . strip_tags( $po_data['number'] ) ) . PHP_EOL;
+						}
+					}
+				}
+			}
+
+			function email_add_address( $order, $sent_to_admin, $plain_text = false ) {
+				if ( $order->payment_method == $this->id ) {
+					if ( $order->payment_method == $this->id ) {
+						$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
+
+						if ( !empty( $po_data['contact'] ) || !empty( $po_data['company'] ) || !empty( $po_data['address1'] ) || !empty( $po_data['city'] ) ) {
+							if ( $plain_text ) {
+								echo __('Purchase Order Address') . ':' . PHP_EOL;
+								if ( !empty( $po_data['contact'] ) ) echo esc_textarea( $po_data['contact'] ) . PHP_EOL;
+								if ( !empty( $po_data['company'] ) ) echo esc_textarea( $po_data['company'] ) . PHP_EOL;
+								if ( !empty( $po_data['address1'] ) ) echo esc_textarea( $po_data['address1'] ) . PHP_EOL;
+								if ( !empty( $po_data['address2'] ) ) echo esc_textarea( $po_data['address2'] ) . PHP_EOL;
+								if ( !empty( $po_data['city'] ) ) echo esc_textarea( $po_data['city'] ) . PHP_EOL;
+								if ( !empty( $po_data['county'] ) ) echo esc_textarea( $po_data['county'] ) . PHP_EOL;
+								if ( !empty( $po_data['postcode'] ) ) echo esc_textarea( $po_data['postcode'] ) . PHP_EOL;
+							} else {
+								$output = '<strong>' . __('Purchase Order Address') . ':</strong>' . PHP_EOL;
+								if ( !empty( $po_data['contact'] ) ) $output .= esc_html( $po_data['contact'] ) . PHP_EOL;
+								if ( !empty( $po_data['company'] ) ) $output .= esc_html( $po_data['company'] ) . PHP_EOL;
+								if ( !empty( $po_data['address1'] ) ) $output .= esc_html( $po_data['address1'] ) . PHP_EOL;
+								if ( !empty( $po_data['address2'] ) ) $output .= esc_html( $po_data['address2'] ) . PHP_EOL;
+								if ( !empty( $po_data['city'] ) ) $output .= esc_html( $po_data['city'] ) . PHP_EOL;
+								if ( !empty( $po_data['county'] ) ) $output .= esc_html( $po_data['county'] ) . PHP_EOL;
+								if ( !empty( $po_data['postcode'] ) ) $output .= esc_html( $po_data['postcode'] ) . PHP_EOL;
+								echo wpautop( $output ) . PHP_EOL;
+							}
+						}
 					}
 				}
 			}

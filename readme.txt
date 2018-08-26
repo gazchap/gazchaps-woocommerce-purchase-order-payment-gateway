@@ -1,7 +1,7 @@
 === GazChap\'s WooCommerce Purchase Order Payment Gateway ===
 Contributors: gazchap
 Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
-Tested up to: 4.9.4
+Tested up to: 4.9.8
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ There are a number of options:
 - You can set the plugin to ask the customer for a postal address for the invoice.
 
 - You can set the plugin to pre-fill this address with the customer\'s existing billing address (if they are logged in, and have one set in WooCommerce)
+
+- You can set the plugin to add supplied Purchase Order information to order notification emails
 
 When an order is received, the plugin will add all of the submitted information on to the WooCommerce View Order screen.
 
