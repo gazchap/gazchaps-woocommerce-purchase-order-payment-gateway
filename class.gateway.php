@@ -175,6 +175,10 @@
 			}
 
 			public function payment_fields(){
+				if ( $description = $this->get_description() ) {
+            		echo wpautop( wptexturize( $description ) ) . "<br>";
+        		}
+        
 				$current_user = wp_get_current_user();
 				$meta = array();
 				$billing_name = "";

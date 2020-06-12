@@ -1,18 +1,20 @@
 <?php
-	/*
-		Plugin Name: GazChap's WooCommerce Purchase Order Payment Gateway
-		Plugin URI: https://www.gazchap.com/posts/woocommerce-purchase-order-payment-gateway
-		Description: Adds a Purchase Order payment method to WooCommerce.
-		Author: Gareth 'GazChap' Griffiths
-		Author URI: https://www.gazchap.com
-		Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
-		Domain Path: /lang
-		Version: 1.1
-		WooCommerce requires at least version: 3.0.0
-		WooCommerce tested up to version: 3.4.4
-		License: GNU General Public License v2.0
-		License URI: http://www.gnu.org/licenses/gpl-2.0.html
-	*/
+/*
+ * Plugin Name: GazChap's WooCommerce Purchase Order Payment Gateway
+ * Plugin URI: https://www.gazchap.com/posts/woocommerce-purchase-order-payment-gateway
+ * Version: 1.1.3
+ * Author: Gareth 'GazChap' Griffiths
+ * Author URI: https://www.gazchap.com
+ * Description: Adds a Purchase Order payment method to WooCommerce.
+ * Tested up to: 5.4.2
+ * WC requires at least: 3.0.0
+ * WC tested up to: 4.2.0
+ * Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
+ * Domain Path: /lang
+ * License: GNU General Public License v2.0
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Donate link: https://paypal.me/gazchap
+ */
 
 	if ( !defined( 'ABSPATH' ) ) {
 		exit;
@@ -53,7 +55,7 @@
 
 		function woocommerce_deactivated_notice() {
 		    ?>
-		    <div class="notice notice-error"><p><?php esc_html_e( 'This plugin requires WooCommerce to be installed and activated.', 'gazchaps-woocommerce-purchase-order-payment-gateway' ) ?></p></div>
+		    <div class="notice notice-error"><p><?php esc_html_e( 'GazChap\'s WooCommerce Purchase Order Gateway requires WooCommerce to be installed and activated.', 'gazchaps-woocommerce-purchase-order-payment-gateway' ) ?></p></div>
 		    <?php
 		}
 

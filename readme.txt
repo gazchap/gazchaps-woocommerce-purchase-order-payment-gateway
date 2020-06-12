@@ -3,7 +3,8 @@ Contributors: gazchap
 Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
-Tested up to: 4.9.8
+Tested up to: 5.4.2
+WC tested up to: 4.2.0
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -27,8 +28,8 @@ Note: This plugin does not (currently, at least) generate the actual invoices - 
 
 == Requirements ==
 
-[WordPress](https://wordpress.org). Tested up to version 4.9.8.
-[WooCommerce](https://woocommerce.com). Tested with versions up to 3.4.4, minimum version is 3.0.0.
+[WordPress](https://wordpress.org). Tested up to version 5.4.
+[WooCommerce](https://woocommerce.com). Tested with versions up to 4.2.0, minimum version is 3.0.0.
 
 == Installation ==
 
@@ -39,6 +40,14 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 1.1.3 (15/04/2019) =
+
+* **Bugfix:** Payment method "description" is now shown during checkout. Thank you to pixelyzed for the bug report.
+
+= 1.1.2 (24/02/2019) =
+
+* Updated the notice shown if WooCommerce is deactivated to include the plugin name
+
 = 1.1 (26/08/2018) =
 
 * **Bugfix:** Purchase Order metadata is now saved to the order before emails are triggered to be sent.
