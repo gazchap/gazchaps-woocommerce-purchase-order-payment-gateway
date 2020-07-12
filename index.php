@@ -2,13 +2,13 @@
 /*
  * Plugin Name: GazChap's WooCommerce Purchase Order Payment Gateway
  * Plugin URI: https://www.gazchap.com/posts/woocommerce-purchase-order-payment-gateway
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Gareth 'GazChap' Griffiths
  * Author URI: https://www.gazchap.com
  * Description: Adds a Purchase Order payment method to WooCommerce.
  * Tested up to: 5.4.2
  * WC requires at least: 3.0.0
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.3.0
  * Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
  * Domain Path: /lang
  * License: GNU General Public License v2.0

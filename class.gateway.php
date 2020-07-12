@@ -178,7 +178,7 @@
 				if ( $description = $this->get_description() ) {
             		echo wpautop( wptexturize( $description ) ) . "<br>";
         		}
-        
+
 				$current_user = wp_get_current_user();
 				$meta = array();
 				$billing_name = "";
@@ -193,7 +193,7 @@
 			<?php if ( $this->ask_po_number ): ?>
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-number"><?php esc_html_e('Purchase Order Number', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?><?php if ( $this->require_po_number ): ?> <span class="required">*</span><?php endif; ?></label>
-					<input type="text" id="gc-wc-popg-number" name="gazchap_purchase_order[number]" class="input-text">
+					<input type="text" id="gc-wc-popg-number" name="gazchap_purchase_order_number" class="input-text">
 				</p>
 			<?php endif; ?>
 
@@ -202,37 +202,37 @@
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-contact"><?php esc_html_e('Contact Name', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?> <span class="required">*</span></label>
-					<input type="text" id="gc-wc-popg-contact" name="gazchap_purchase_order[contact]" class="input-text"<?php if ( $this->use_billing_address && !empty( $billing_name ) ): ?> value="<?php echo esc_attr( $billing_name ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-contact" name="gazchap_purchase_order_contact" class="input-text"<?php if ( $this->use_billing_address && !empty( $billing_name ) ): ?> value="<?php echo esc_attr( $billing_name ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-company"><?php esc_html_e('Company/Organisation', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?> <span class="required">*</span></label>
-					<input type="text" id="gc-wc-popg-company" name="gazchap_purchase_order[company]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_company'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_company'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-company" name="gazchap_purchase_order_company" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_company'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_company'][0] ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-address1"><?php esc_html_e('Address (Line 1)', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?> <span class="required">*</span></label>
-					<input type="text" id="gc-wc-popg-address1" name="gazchap_purchase_order[address1]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_address_1'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_address_1'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-address1" name="gazchap_purchase_order_address1" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_address_1'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_address_1'][0] ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-address2"><?php esc_html_e('Address (Line 2)', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?></label>
-					<input type="text" id="gc-wc-popg-address2" name="gazchap_purchase_order[address2]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_address_2'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_address_2'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-address2" name="gazchap_purchase_order_address2" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_address_2'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_address_2'][0] ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-city"><?php esc_html_e('City', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?> <span class="required">*</span></label>
-					<input type="text" id="gc-wc-popg-city" name="gazchap_purchase_order[city]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_city'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_city'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-city" name="gazchap_purchase_order_city" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_city'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_city'][0] ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-county"><?php esc_html_e('County', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?></label>
-					<input type="text" id="gc-wc-popg-county" name="gazchap_purchase_order[county]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_state'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_state'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-county" name="gazchap_purchase_order_county" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_state'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_state'][0] ); ?>"<?php endif; ?>>
 				</p>
 
 				<p class="form-row form-row-wide">
 					<label for="gc-wc-popg-postcode"><?php esc_html_e('Postcode', 'gazchaps-woocommerce-purchase-order-payment-gateway'); ?> <span class="required">*</span></label>
-					<input type="text" id="gc-wc-popg-postcode" name="gazchap_purchase_order[postcode]" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_postcode'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_postcode'][0] ); ?>"<?php endif; ?>>
+					<input type="text" id="gc-wc-popg-postcode" name="gazchap_purchase_order_postcode" class="input-text"<?php if ( $this->use_billing_address &&!empty( $meta['billing_postcode'][0] ) ): ?> value="<?php echo esc_attr( $meta['billing_postcode'][0] ); ?>"<?php endif; ?>>
 				</p>
 			<?php endif; ?>
 
@@ -241,11 +241,15 @@
 
 			public function validate_fields() {
 				$valid = true;
-				if ( empty( $_POST['gazchap_purchase_order'] ) ) {
+				$data = array();
+				$fields = array( "number", "contact", "company", "address1", "address2", "city", "county", "postcode" );
+				foreach( $fields as $field ) {
+					$data[ $field ] = ( isset( $_POST[ 'gazchap_purchase_order_' . $field ] ) ) ? $_POST[ 'gazchap_purchase_order_' . $field ] : '';
+				}
+				if ( empty( $data ) ) {
 					wc_add_notice( __( 'Please complete the Purchase Order details.', 'gazchaps-woocommerce-purchase-order-payment-gateway' ), 'error' );
 					$valid = false;
 				} else {
-					$data = $_POST['gazchap_purchase_order'];
 					if ( $this->ask_po_number && $this->require_po_number && empty( $data['number'] ) ) {
 						wc_add_notice( __( 'Please enter a Purchase Order Number.', 'gazchaps-woocommerce-purchase-order-payment-gateway' ), 'error' );
 						$valid = false;
@@ -278,6 +282,7 @@
 						}
 					}
 				}
+				$_POST['gazchap_purchase_order'] = $data;
 
 				return $valid;
 			}
@@ -315,8 +320,13 @@
 				}
 			}
 
+			/**
+			 * @param $order WC_Order
+			 * @param bool $sent_to_admin
+			 * @param bool $plain_text
+			 */
 			function email_add_po_number( $order, $sent_to_admin, $plain_text = false ) {
-				if ( $order->payment_method == $this->id ) {
+				if ( $order->get_payment_method() == $this->id ) {
 					$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
 					if ( !empty( $po_data['number'] ) ) {
 						if ( $plain_text ) {
@@ -328,32 +338,35 @@
 				}
 			}
 
+			/**
+			 * @param $order WC_Order
+			 * @param bool $sent_to_admin
+			 * @param bool $plain_text
+			 */
 			function email_add_address( $order, $sent_to_admin, $plain_text = false ) {
-				if ( $order->payment_method == $this->id ) {
-					if ( $order->payment_method == $this->id ) {
-						$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
+				if ( $order->get_payment_method() == $this->id ) {
+					$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
 
-						if ( !empty( $po_data['contact'] ) || !empty( $po_data['company'] ) || !empty( $po_data['address1'] ) || !empty( $po_data['city'] ) ) {
-							if ( $plain_text ) {
-								echo __('Purchase Order Address', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ':' . PHP_EOL;
-								if ( !empty( $po_data['contact'] ) ) echo esc_textarea( $po_data['contact'] ) . PHP_EOL;
-								if ( !empty( $po_data['company'] ) ) echo esc_textarea( $po_data['company'] ) . PHP_EOL;
-								if ( !empty( $po_data['address1'] ) ) echo esc_textarea( $po_data['address1'] ) . PHP_EOL;
-								if ( !empty( $po_data['address2'] ) ) echo esc_textarea( $po_data['address2'] ) . PHP_EOL;
-								if ( !empty( $po_data['city'] ) ) echo esc_textarea( $po_data['city'] ) . PHP_EOL;
-								if ( !empty( $po_data['county'] ) ) echo esc_textarea( $po_data['county'] ) . PHP_EOL;
-								if ( !empty( $po_data['postcode'] ) ) echo esc_textarea( $po_data['postcode'] ) . PHP_EOL;
-							} else {
-								$output = '<strong>' . __('Purchase Order Address', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ':</strong>' . PHP_EOL;
-								if ( !empty( $po_data['contact'] ) ) $output .= esc_html( $po_data['contact'] ) . PHP_EOL;
-								if ( !empty( $po_data['company'] ) ) $output .= esc_html( $po_data['company'] ) . PHP_EOL;
-								if ( !empty( $po_data['address1'] ) ) $output .= esc_html( $po_data['address1'] ) . PHP_EOL;
-								if ( !empty( $po_data['address2'] ) ) $output .= esc_html( $po_data['address2'] ) . PHP_EOL;
-								if ( !empty( $po_data['city'] ) ) $output .= esc_html( $po_data['city'] ) . PHP_EOL;
-								if ( !empty( $po_data['county'] ) ) $output .= esc_html( $po_data['county'] ) . PHP_EOL;
-								if ( !empty( $po_data['postcode'] ) ) $output .= esc_html( $po_data['postcode'] ) . PHP_EOL;
-								echo wpautop( $output ) . PHP_EOL;
-							}
+					if ( !empty( $po_data['contact'] ) || !empty( $po_data['company'] ) || !empty( $po_data['address1'] ) || !empty( $po_data['city'] ) ) {
+						if ( $plain_text ) {
+							echo __('Purchase Order Address', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ':' . PHP_EOL;
+							if ( !empty( $po_data['contact'] ) ) echo esc_textarea( $po_data['contact'] ) . PHP_EOL;
+							if ( !empty( $po_data['company'] ) ) echo esc_textarea( $po_data['company'] ) . PHP_EOL;
+							if ( !empty( $po_data['address1'] ) ) echo esc_textarea( $po_data['address1'] ) . PHP_EOL;
+							if ( !empty( $po_data['address2'] ) ) echo esc_textarea( $po_data['address2'] ) . PHP_EOL;
+							if ( !empty( $po_data['city'] ) ) echo esc_textarea( $po_data['city'] ) . PHP_EOL;
+							if ( !empty( $po_data['county'] ) ) echo esc_textarea( $po_data['county'] ) . PHP_EOL;
+							if ( !empty( $po_data['postcode'] ) ) echo esc_textarea( $po_data['postcode'] ) . PHP_EOL;
+						} else {
+							$output = '<strong>' . __('Purchase Order Address', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ':</strong>' . PHP_EOL;
+							if ( !empty( $po_data['contact'] ) ) $output .= esc_html( $po_data['contact'] ) . PHP_EOL;
+							if ( !empty( $po_data['company'] ) ) $output .= esc_html( $po_data['company'] ) . PHP_EOL;
+							if ( !empty( $po_data['address1'] ) ) $output .= esc_html( $po_data['address1'] ) . PHP_EOL;
+							if ( !empty( $po_data['address2'] ) ) $output .= esc_html( $po_data['address2'] ) . PHP_EOL;
+							if ( !empty( $po_data['city'] ) ) $output .= esc_html( $po_data['city'] ) . PHP_EOL;
+							if ( !empty( $po_data['county'] ) ) $output .= esc_html( $po_data['county'] ) . PHP_EOL;
+							if ( !empty( $po_data['postcode'] ) ) $output .= esc_html( $po_data['postcode'] ) . PHP_EOL;
+							echo wpautop( $output ) . PHP_EOL;
 						}
 					}
 				}
