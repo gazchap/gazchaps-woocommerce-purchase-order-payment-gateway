@@ -138,7 +138,7 @@
 			}
 
 			public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
-				if ( !empty( $this->instructions ) && !$sent_to_admin && $order->payment_method == $this->id && $order->has_status( $this->status ) ) {
+				if ( !empty( $this->instructions ) && !$sent_to_admin && $order->get_payment_method() == $this->id && $order->has_status( $this->status ) ) {
 					if ( $plain_text ) {
 						echo strip_tags( $this->instructions ) . PHP_EOL;
 					} else {

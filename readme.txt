@@ -40,6 +40,10 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 1.1.5 (04/05/2021) =
+
+* **Bugfix:** Fixed a PHP Notice being raised in the email_instructions() method - thanks to sharespring for the report.
+
 = 1.1.4 (12/07/2020) =
 
 * **Bugfix:** Fixed an incompatibility with some Persistent Checkout Data JavaScript in some themes - thanks to kylehenderson for the report.
