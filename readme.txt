@@ -3,8 +3,8 @@ Contributors: gazchap
 Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
-Tested up to: 5.6
-WC tested up to: 4.9.0
+Tested up to: 5.9
+WC tested up to: 6.1.1
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -28,8 +28,7 @@ Note: This plugin does not (currently, at least) generate the actual invoices - 
 
 == Requirements ==
 
-[WordPress](https://wordpress.org). Tested up to version 5.6.
-[WooCommerce](https://woocommerce.com). Tested with versions up to 4.9.0, minimum version is 3.0.0.
+[WooCommerce](https://woocommerce.com), at least version 3.0.
 
 == Installation ==
 
