@@ -40,7 +40,6 @@
 				$this->use_billing_address = ( $this->get_option( 'use_billing_address' ) == 'yes' ) ? true : false;
 
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-				add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'display_order_meta' ), 10, 1 );
 				add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_instructions' ) );
 				add_action( 'woocommerce_email_after_order_table', array( $this, 'email_instructions' ), 10, 3 );
 
@@ -149,19 +148,23 @@
 
 			public function process_payment( $order_id ) {
 
+				$order = wc_get_order( $order_id );
+
 				if ( isset( $_POST['gazchap_purchase_order'] ) && is_array( $_POST['gazchap_purchase_order'] ) ) {
 					$meta = array();
 					$fields = array( "number", "contact", "company", "address1", "address2", "city", "county", "postcode" );
 					foreach( $fields as $field ) {
 						if ( !empty( $_POST['gazchap_purchase_order'][$field] ) ) {
 							$meta[$field] = sanitize_text_field( $_POST['gazchap_purchase_order'][$field] );
+							if ( !empty( $meta[$field] ) ) {
+								$order->update_meta_data( '_gazchap_purchase_order_' . $field, $meta[$field] );
+							}
 						}
 					}
-
-					update_post_meta( $order_id, '_gazchap_purchase_order', $meta );
+					$order->update_meta_data( '_gazchap_purchase_order', $meta );
+					$order->save_meta_data();
 				}
 
-				$order = wc_get_order( $order_id );
 				$order->update_status( $this->status, 'Awaiting invoice payment from purchase order.' );
 				wc_reduce_stock_levels( $order_id );
 

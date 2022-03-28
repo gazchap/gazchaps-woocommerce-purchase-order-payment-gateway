@@ -4,13 +4,13 @@ Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
 Tested up to: 5.9
-WC tested up to: 6.1.1
+WC tested up to: 6.3.1
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
 Donate link: https://paypal.me/gazchap
 
-Adds a Purchase Order payment gateway to WooCommerce.
+Adds a Purchase Order offline payment gateway to WooCommerce.
 
 == Description ==
 This plugin adds a new offline payment gateway to WooCommerce that allows your customers to request an invoice with a Purchase Order.
@@ -23,6 +23,8 @@ There are a number of options:
 * You can set the plugin to add supplied Purchase Order information to order notification emails
 
 When an order is received, the plugin will add all of the submitted information on to the WooCommerce View Order screen.
+
+As of version 2.0, you can also add Purchase Order information to orders created through the WooCommerce Admin screens, and edit Purchase Order information saved against an existing order.
 
 Note: This plugin does not (currently, at least) generate the actual invoices - it is only used to collect the Purchase Order information.
 
@@ -39,6 +41,11 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 2.0 (26/03/2022) =
+
+* Data submitted for the Purchase Order is now also stored in individual meta keys on the order, as well as in the original array format.
+* The Purchase Order data (PO number, and address details if enabled) can now be edited/added for orders in the WooCommerce Admin screens - thanks to Bryson Sask at Key Innovations for the request.
+
 = 1.1.5 (04/05/2021) =
 
 * **Bugfix:** Fixed a PHP Notice being raised in the email_instructions() method - thanks to sharespring for the report.
