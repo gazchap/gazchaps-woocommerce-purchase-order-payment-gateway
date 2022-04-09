@@ -41,6 +41,10 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 2.1 (09/04/2022) =
+
+* Added language translation files for en-US and en-GB, primarily for correct spelling of "Organisation" in the United States. A .pot file is also included for other translators.
+
 = 2.0 (26/03/2022) =
 
 * Data submitted for the Purchase Order is now also stored in individual meta keys on the order, as well as in the original array format.
