@@ -21,7 +21,7 @@
 
     $payment_method.on( 'change', function () {
         var val = $( this ).val();
-        if ( 'gazchap_wc_purchaseordergateway' === val ) {
+        if ( gcWcPoPg.gatewayId === val ) {
             show_fields();
         } else {
             hide_fields();

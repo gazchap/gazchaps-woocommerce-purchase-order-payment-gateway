@@ -3,8 +3,8 @@ Contributors: gazchap
 Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
-Tested up to: 6.1
-WC tested up to: 7.0.0
+Tested up to: 6.2
+WC tested up to: 7.4.0
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -21,10 +21,16 @@ There are a number of options:
 * You can set the plugin to ask the customer for a postal address for the invoice.
 * You can set the plugin to pre-fill this address with the customer's existing billing address (if they are logged in, and have one set in WooCommerce)
 * You can set the plugin to add supplied Purchase Order information to order notification emails
+* You can set the plugin to add supplied Purchase Order information to order objects in the WooCommerce REST API
 
 When an order is received, the plugin will add all of the submitted information on to the WooCommerce View Order screen.
 
 As of version 2.0, you can also add Purchase Order information to orders created through the WooCommerce Admin screens, and edit Purchase Order information saved against an existing order.
+
+As of version 3.0, you can also add Purchase Order information to orders in the WooCommerce REST API. There are two settings to control this behaviour, allowing you to choose to add just the PO Number as well as the address if needed.
+The two fields in the Order objects are `gazchap_purchase_order_number` and `gazchap_purchase_order_address` respectively.
+The number is just a string, or `null` if no number was provided (or the payment method was not the Purchase Order gateway)
+The address is an array of strings: `contact`, `company`, `address1`, `address2`, `city`, `county`, `postcode`. These fields can be null if not given.
 
 Note: This plugin does not (currently, at least) generate the actual invoices - it is only used to collect the Purchase Order information.
 
@@ -41,6 +47,10 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 3.0 (22/03/2022) =
+
+* Added options to add PO details as separate fields to the WooCommerce REST API, enabled by default. Props to Darrin for the suggestion.
+
 = 2.1 (09/04/2022) =
 
 * Added language translation files for en-US and en-GB, primarily for correct spelling of "Organisation" in the United States. A .pot file is also included for other translators.

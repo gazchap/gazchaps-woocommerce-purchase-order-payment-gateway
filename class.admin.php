@@ -14,6 +14,9 @@
 
 		public function enqueue_js_css() {
 			wp_register_script( 'gazchap_purchase_order_admin', GC_WC_POPG_URL . 'admin.min.js', array( 'jquery' ), GC_WC_POPG_VERSION, true );
+			wp_localize_script( 'gazchap_purchase_order_admin', 'gcWcPoPg', array(
+				'gatewayId' => GC_WC_POPG_GATEWAY_ID,
+			) );
 			wp_enqueue_script( 'gazchap_purchase_order_admin' );
 			wp_register_style( 'gazchap_purchase_order_admin_css', GC_WC_POPG_URL . 'admin.min.css', array(), GC_WC_POPG_VERSION );
 			wp_enqueue_style( 'gazchap_purchase_order_admin_css' );
@@ -25,7 +28,7 @@
 		 * @return void
 		 */
 		function display_fields( $order ) {
-			if ( $order->get_payment_method() !== 'gazchap_wc_purchaseordergateway' ) return;
+			if ( $order->get_payment_method() !== GC_WC_POPG_GATEWAY_ID ) return;
 
 			$meta = $order->get_meta( '_gazchap_purchase_order' );
 			if ( !empty( $meta['number'] ) ) {
@@ -109,7 +112,7 @@
 
 		public function save_to_order( $order_id ) {
 			$order = wc_get_order( $order_id );
-			if ( $order->get_payment_method() !== 'gazchap_wc_purchaseordergateway' ) return;
+			if ( $order->get_payment_method() !== GC_WC_POPG_GATEWAY_ID ) return;
 
 			$fields = array(
 				'_gazchap_purchase_order_number',

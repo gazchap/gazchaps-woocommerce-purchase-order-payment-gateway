@@ -11,13 +11,15 @@
 			public $status;
 			public $ask_po_number;
 			public $add_po_number_to_email;
+			public $add_po_number_to_rest_api;
 			public $require_po_number;
 			public $ask_address;
 			public $add_address_to_email;
+			public $add_address_to_rest_api;
 			public $use_billing_address;
 
 			public function __construct() {
-				$this->id                 = 'gazchap_wc_purchaseordergateway';
+				$this->id                 = GC_WC_POPG_GATEWAY_ID;
 				$this->icon               = '';
 				$this->has_fields         = true;
 				$this->method_title       = __( 'Purchase Order', 'gazchaps-woocommerce-purchase-order-payment-gateway' );
@@ -35,8 +37,10 @@
 				$this->ask_po_number = ( $this->get_option( 'ask_po_number' ) == 'yes' ) ? true : false;
 				$this->require_po_number = ( $this->get_option( 'require_po_number' ) == 'yes' ) ? true : false;
 				$this->add_po_number_to_email  = ( $this->get_option( 'add_po_number_to_email' ) == 'yes' ) ? true : false;
+				$this->add_po_number_to_rest_api  = ( $this->get_option( 'add_po_number_to_rest_api' ) == 'yes' ) ? true : false;
 				$this->ask_address = ( $this->get_option( 'ask_address' ) == 'yes' ) ? true : false;
 				$this->add_address_to_email  = ( $this->get_option( 'add_address_to_email' ) == 'yes' ) ? true : false;
+				$this->add_address_to_rest_api  = ( $this->get_option( 'add_address_to_rest_api' ) == 'yes' ) ? true : false;
 				$this->use_billing_address = ( $this->get_option( 'use_billing_address' ) == 'yes' ) ? true : false;
 
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -109,6 +113,12 @@
 						'label'   => __( 'Adds the supplied purchase order number to the order confirmation emails', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
 						'default' => 'yes'
 					),
+					'add_po_number_to_rest_api' => array(
+						'title'   => __( 'Add PO Number to REST API', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
+						'type'    => 'checkbox',
+						'label'   => __( 'Adds the supplied purchase order number to orders retrieved via the WooCommerce REST API (<code>order.gazchap_purchase_order_number</code>)', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
+						'default' => 'yes'
+					),
 					'ask_address' => array(
 						'title'   => __( 'Ask for Address', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
 						'type'    => 'checkbox',
@@ -120,6 +130,12 @@
 						'type'    => 'checkbox',
 						'label'   => __( 'Adds the supplied address to the order confirmation emails', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
 						'default' => 'no'
+					),
+					'add_address_to_rest_api' => array(
+						'title'   => __( 'Add Address to REST API', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
+						'type'    => 'checkbox',
+						'label'   => __( 'Adds the supplied address to orders retrieved via the WooCommerce REST API (<code>order.gazchap_purchase_order_address</code>)', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
+						'default' => 'yes'
 					),
 					'use_billing_address' => array(
 						'title'   => __( 'Use Billing Address', 'gazchaps-woocommerce-purchase-order-payment-gateway' ),
