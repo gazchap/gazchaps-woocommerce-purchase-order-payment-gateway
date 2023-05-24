@@ -4,7 +4,7 @@ Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
 Tested up to: 6.2
-WC tested up to: 7.4.0
+WC tested up to: 7.7.0
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -47,6 +47,10 @@ Install via the WordPress Plugin Directory, or download a release from this repo
 Once installed and activated, you need to enable the Payment Gateway in *WooCommerce > Settings > Checkout* (or via the plugin's Settings link on the WordPress Plugins page) - you can then set the various options for the plugin at the same time.
 
 == Changelog ==
+= 3.1 (24/05/2023) =
+
+* Fixed a bug with the PO details being removed from the WooCommerce Order when the status (and other information) is updated via the admin screens. Thanks to adamalexanderw for the report.
+
 = 3.0 (22/03/2022) =
 
 * Added options to add PO details as separate fields to the WooCommerce REST API, enabled by default. Props to Darrin for the suggestion.

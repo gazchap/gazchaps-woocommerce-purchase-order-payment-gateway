@@ -129,7 +129,12 @@
 			if ( !$array_meta || !is_array( $array_meta ) ) $array_meta = array();
 			foreach( $fields as $field ) {
 				$array_key = str_replace( '_gazchap_purchase_order_', '', $field );
-				$value = ( isset( $_POST[$field] ) ) ? sanitize_text_field( $_POST[$field] ) : '';
+				$value = null;
+				if ( isset( $_POST[$field] ) ) {
+					$value = sanitize_text_field( $_POST[$field] );
+				} elseif ( isset( $array_meta[$array_key] ) ) {
+					$value = $array_meta[$array_key];
+				}
 				if ( !empty( $value ) ) {
 					$array_meta[$array_key] = $value;
 					$order->update_meta_data( $field, $value );
