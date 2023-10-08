@@ -2,13 +2,13 @@
 /*
  * Plugin Name: GazChap's WooCommerce Purchase Order Payment Gateway
  * Plugin URI: https://www.gazchap.com/posts/woocommerce-purchase-order-payment-gateway
- * Version: 3.1
+ * Version: 3.2
  * Author: Gareth 'GazChap' Griffiths
  * Author URI: https://www.gazchap.com
  * Description: Adds a Purchase Order payment method to WooCommerce.
- * Tested up to: 6.2
+ * Tested up to: 6.2.2
  * WC requires at least: 3.0.0
- * WC tested up to: 7.7.0
+ * WC tested up to: 7.8.0
  * Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
  * Domain Path: /lang
  * License: GNU General Public License v2.0
@@ -22,7 +22,7 @@
 
 	define('GC_WC_POPG_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR );
 	define('GC_WC_POPG_URL', plugin_dir_url( __FILE__ ) );
-	define('GC_WC_POPG_VERSION', '3.1' );
+	define('GC_WC_POPG_VERSION', '3.2' );
 	define('GC_WC_POPG_GATEWAY_ID', 'gazchap_wc_purchaseordergateway');
 
 	class GC_WC_POPG {
@@ -36,6 +36,13 @@
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link' ) );
 
 			add_action( 'rest_api_init', array( $this, 'rest_api_init' ), 10 );
+
+			// declare compatibility for WooCommerce HPOS
+			add_action( 'before_woocommerce_init', function() {
+				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+				}
+			} );
 		}
 
 		function load_class() {
@@ -87,8 +94,7 @@
 				register_rest_field( 'shop_order', 'gazchap_purchase_order_number', array(
 					'get_callback' => function( $order ) {
 						if ( empty( $order['id'] ) || empty( $order['payment_method'] ) || $order['payment_method'] != GC_WC_POPG_GATEWAY_ID ) return null;
-
-						$po_data = maybe_unserialize( get_post_meta( $order['id'], '_gazchap_purchase_order', true ) );
+						$po_data = self::get_po_meta_data_from_order( $order['id'] );
 						if ( !empty( $po_data['number'] ) ) {
 							return $po_data['number'];
 						}
@@ -102,7 +108,7 @@
 					'get_callback' => function( $order ) {
 						if ( empty( $order['id'] ) || empty( $order['payment_method'] ) || $order['payment_method'] != GC_WC_POPG_GATEWAY_ID ) return null;
 
-						$po_data = maybe_unserialize( get_post_meta( $order['id'], '_gazchap_purchase_order', true ) );
+						$po_data = self::get_po_meta_data_from_order( $order['id'] );
 						$return = [];
 						$fields = array( 'contact', 'company', 'address1', 'address2', 'city', 'county', 'postcode' );
 						foreach( $fields as $field ) {
@@ -116,6 +122,15 @@
 					},
 				) );
 			}
+		}
+
+		public static function get_po_meta_data_from_order( $order ) {
+			if ( is_numeric( $order ) ) {
+				$order = wc_get_order( $order );
+			}
+			if ( !is_a( $order, WC_Order::class ) ) return null;
+
+			return $order->get_meta( '_gazchap_purchase_order' );
 		}
 	}
 

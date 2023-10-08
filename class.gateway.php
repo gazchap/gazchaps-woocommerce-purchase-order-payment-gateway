@@ -309,7 +309,7 @@
 			function display_order_meta() {
 				$order_id = get_the_ID();
 				if ( 0 < $order_id ) {
-					$meta = maybe_unserialize( get_post_meta( $order_id, '_gazchap_purchase_order', true ) );
+					$meta = GC_WC_POPG::get_po_meta_data_from_order( $order_id );
 					if ( !empty( $meta['number'] ) ) {
 					?>
 						<div class="wp-clearfix"></div>
@@ -346,7 +346,7 @@
 			 */
 			function email_add_po_number( $order, $sent_to_admin, $plain_text = false ) {
 				if ( $order->get_payment_method() == $this->id ) {
-					$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
+					$po_data = GC_WC_POPG::get_po_meta_data_from_order( $order );
 					if ( !empty( $po_data['number'] ) ) {
 						if ( $plain_text ) {
 							echo __('Purchase Order Number', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ': ' . strip_tags( $po_data['number'] ) . PHP_EOL;
@@ -364,8 +364,7 @@
 			 */
 			function email_add_address( $order, $sent_to_admin, $plain_text = false ) {
 				if ( $order->get_payment_method() == $this->id ) {
-					$po_data = maybe_unserialize( get_post_meta( $order->get_id(), '_gazchap_purchase_order', true ) );
-
+					$po_data = GC_WC_POPG::get_po_meta_data_from_order( $order );
 					if ( !empty( $po_data['contact'] ) || !empty( $po_data['company'] ) || !empty( $po_data['address1'] ) || !empty( $po_data['city'] ) ) {
 						if ( $plain_text ) {
 							echo __('Purchase Order Address', 'gazchaps-woocommerce-purchase-order-payment-gateway') . ':' . PHP_EOL;

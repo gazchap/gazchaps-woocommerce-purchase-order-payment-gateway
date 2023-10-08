@@ -30,7 +30,7 @@
 		function display_fields( $order ) {
 			if ( $order->get_payment_method() !== GC_WC_POPG_GATEWAY_ID ) return;
 
-			$meta = $order->get_meta( '_gazchap_purchase_order' );
+			$meta = GC_WC_POPG::get_po_meta_data_from_order( $order );
 			if ( !empty( $meta['number'] ) ) {
 				?>
 				<div id="gazchap_purchase_order_fields" class="address">
@@ -74,7 +74,7 @@
 			$gateway = new GazChap_WC_PurchaseOrder_Gateway();
 			if ( !$gateway->ask_po_number && !$gateway->ask_address ) return;
 
-			$meta = $order->get_meta( '_gazchap_purchase_order' );
+			$meta = GC_WC_POPG::get_po_meta_data_from_order( $order );
 			echo '<div id="gazchap_purchase_order_edit_fields" class="edit_address">';
 			if ( $gateway->ask_po_number ) {
 				woocommerce_wp_text_input( array(
@@ -125,7 +125,7 @@
 				'_gazchap_purchase_order_postcode',
 			);
 
-			$array_meta = $order->get_meta( '_gazchap_purchase_order' );
+			$array_meta = GC_WC_POPG::get_po_meta_data_from_order( $order );
 			if ( !$array_meta || !is_array( $array_meta ) ) $array_meta = array();
 			foreach( $fields as $field ) {
 				$array_key = str_replace( '_gazchap_purchase_order_', '', $field );
