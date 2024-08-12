@@ -6,9 +6,9 @@
  * Author: Gareth 'GazChap' Griffiths
  * Author URI: https://www.gazchap.com
  * Description: Adds a Purchase Order payment method to WooCommerce.
- * Tested up to: 6.2.2
+ * Tested up to: 6.6.1
  * WC requires at least: 3.0.0
- * WC tested up to: 7.8.0
+ * WC tested up to: 9.1.0
  * Text Domain: gazchaps-woocommerce-purchase-order-payment-gateway
  * Domain Path: /lang
  * License: GNU General Public License v2.0

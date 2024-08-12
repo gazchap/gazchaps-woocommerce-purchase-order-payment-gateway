@@ -3,8 +3,8 @@ Contributors: gazchap
 Tags: woocommerce,ecommerce,gateway,purchase order,payment,offline,invoice
 Requires at least: 4.2.0
 Requires PHP: 5.3
-Tested up to: 6.2.2
-WC tested up to: 7.8.0
+Tested up to: 6.6.1
+WC tested up to: 9.1.0
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
